@@ -11,12 +11,12 @@ export default function FeedStack() {
       <Stack.Screen
         name="Feed Screen"
         component={FeedScreen}
-        // options={{ title: "Feed", headerShown: false }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Create Post Screen"
         component={CreatePostScreen}
-        // options={{ title: "Feed", headerShown: false }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

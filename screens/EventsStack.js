@@ -12,7 +12,7 @@ export default function EventsStack() {
       <Stack.Screen
         name="Events Screen"
         component={EventsScreen}
-        // options={{ title: "Feed", headerShown: false }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
