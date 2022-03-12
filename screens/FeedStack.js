@@ -1,5 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
+import ChatListScreen from "./ChatListScreen";
+import ChatScreen from "./ChatScreen";
 import ClickedPostScreen from "./ClickedPostScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import FeedScreen from "./FeedScreen";
@@ -23,6 +25,16 @@ export default function FeedStack() {
         name="Clicked Post"
         component={ClickedPostScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Chat Screen"
+        component={ChatScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Chat List Screen"
+        component={ChatListScreen}
+        options={{ title: "Chats" }}
       />
     </Stack.Navigator>
   );
