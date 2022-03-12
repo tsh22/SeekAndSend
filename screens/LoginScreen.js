@@ -36,7 +36,9 @@ export default function LoginScreen({ navigation }) {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Main Tab Navigator")}
+          onPress={() =>
+            navigation.navigate("Main Tab Navigator", { username: username })
+          }
         >
           <Text style={styles.buttonText}>Sign in</Text>
           <Entypo name="chevron-right" size={24} color="white" />
