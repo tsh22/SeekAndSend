@@ -302,72 +302,73 @@ export default function FeedScreen({ navigation, route }) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView style={{ backgroundColor: "white", paddingHorizontal: 10 }}>
-        <View style={styles.heading}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text style={{ fontSize: 40, marginRight: 10 }}>
-              Hi, {username}
-            </Text>
-            <Ionicons name="person-circle-sharp" size={60} color="black" />
-          </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Chat List Screen")}
-          >
-            <Ionicons
-              name="ios-chatbox-ellipses-outline"
-              size={60}
-              color="black"
-            />
-          </TouchableOpacity>
+    <View style={{ flex: 1, backgroundColor: "white", paddingHorizontal: 10 }}>
+      {/* <ScrollView
+        style={{ backgroundColor: "white", paddingHorizontal: 10 }}
+        nestedScrollEnabled={true}
+      > */}
+      <View style={styles.heading}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={{ fontSize: 40, marginRight: 10 }}>Hi, {username}</Text>
+          <Ionicons name="person-circle-sharp" size={60} color="black" />
         </View>
-        <ButtonGroup
-          buttons={["Recent", "Popular"]}
-          onPress={(value) => {
-            setFilter(value);
-          }}
-          selectedIndex={filter}
-          containerStyle={{ marginBottom: 20 }}
-          selectedButtonStyle={{ backgroundColor: "#79694F" }}
-        />
-        <View
-          style={{
-            backgroundColor: "#FFE3B3",
-            height: 250,
-            alignSelf: "center",
-            borderRadius: 10,
-            marginVertical: 10,
-          }}
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Chat List Screen")}
         >
-          <Text style={{ fontWeight: "bold", fontSize: 16, margin: 10 }}>
-            URGENT
-          </Text>
-          <FlatList
-            data={urgentPosts}
-            renderItem={({ item }) => <ListUrgent item={item} />}
-            keyExtractor={(item) => item.id}
+          <Ionicons
+            name="ios-chatbox-ellipses-outline"
+            size={60}
+            color="black"
           />
-        </View>
-        {filter == 0 ? (
-          <FlatList
-            extraData={changedId}
-            data={feedPosts.sort(compareTime)}
-            renderItem={({ item, index }) => (
-              <ListFeed item={item} index={index} />
-            )}
-            keyExtractor={(item) => item.id}
-          />
-        ) : (
-          <FlatList
-            extraData={changedId}
-            data={feedPosts.sort(compareLikes)}
-            renderItem={({ item, index }) => (
-              <ListFeed item={item} index={index} />
-            )}
-            keyExtractor={(item) => item.id}
-          />
-        )}
-      </ScrollView>
+        </TouchableOpacity>
+      </View>
+      <ButtonGroup
+        buttons={["Recent", "Popular"]}
+        onPress={(value) => {
+          setFilter(value);
+        }}
+        selectedIndex={filter}
+        containerStyle={{ marginBottom: 20 }}
+        selectedButtonStyle={{ backgroundColor: "#79694F" }}
+      />
+      <View
+        style={{
+          backgroundColor: "#FFE3B3",
+          height: 250,
+          alignSelf: "center",
+          borderRadius: 10,
+          marginVertical: 10,
+        }}
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 16, margin: 10 }}>
+          URGENT
+        </Text>
+        <FlatList
+          data={urgentPosts}
+          renderItem={({ item }) => <ListUrgent item={item} />}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+      {filter == 0 ? (
+        <FlatList
+          extraData={changedId}
+          data={feedPosts.sort(compareTime)}
+          renderItem={({ item, index }) => (
+            <ListFeed item={item} index={index} />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <FlatList
+          extraData={changedId}
+          data={feedPosts.sort(compareLikes)}
+          renderItem={({ item, index }) => (
+            <ListFeed item={item} index={index} />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      )}
+      {/* </ScrollView> */}
       <View>
         <TouchableOpacity
           style={styles.button}

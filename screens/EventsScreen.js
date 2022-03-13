@@ -111,26 +111,31 @@ export default function EventsScreen({ navigation }) {
         markedDates={{
           "2022-03-01": {
             color: "#FFF1D9",
+            textColor: "black",
             startingDay: true,
             endingDay: true,
           },
           "2022-03-05": {
             startingDay: true,
             color: "#FFF1D9",
+            textColor: "black",
           },
           "2022-03-06": {
             endingDay: true,
             color: "#FFF1D9",
+            textColor: "black",
           },
           "2022-03-11": {
             color: "#FFF1D9",
             startingDay: true,
             endingDay: true,
+            textColor: "black",
           },
           "2022-03-15": {
             color: "#FFC872",
             startingDay: true,
             endingDay: true,
+            textColor: "black",
           },
         }}
         // Handler which gets executed on day press. Default = undefined
