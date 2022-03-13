@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 30,
+    marginVertical: 20,
   },
   enquiryText: {
     textAlign: "center",

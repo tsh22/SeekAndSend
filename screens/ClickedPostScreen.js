@@ -140,7 +140,7 @@ export default function ClickedPostScreen({ navigation, route }) {
       {
         id: `${listComments.length}`,
         name: username,
-        tier: "Tier 10",
+        tier: "Tier 5",
         comment: comment,
         likes: 0,
       },

@@ -20,7 +20,7 @@ export default function App() {
         <Stack.Screen
           name="Login Screen"
           component={LoginScreen}
-          options={{ title: "Login" }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Main Tab Navigator"
