@@ -17,7 +17,7 @@ export default function EventsScreen({ navigation }) {
     {
       id: 0,
       date: "15 March",
-      title: "raiSE Masterclass 1 - Survive and Thrive in the Present",
+      title: "raiSE Masterclass 2 - Survive and Thrive in the Present",
       time: "1400 - 1600 hrs",
       price: "$15/pax (provisional membership); $12/pax (membership)",
       numDate: "2022-03-15",
@@ -37,8 +37,8 @@ export default function EventsScreen({ navigation }) {
     {
       id: 1,
       date: "5 - 6 March",
-      title: "raiSE Masterclass 1 - Survive and Thrive in the Present",
-      time: "1400 - 1600 hrs",
+      title: "Social Enterprise Development Fundamentals Workshop",
+      time: "0900 - 1800 hrs",
       price: "$15/pax (provisional membership); $12/pax (membership)",
       numDate: "2022-03-05",
       isEnrolled: false,
@@ -46,17 +46,17 @@ export default function EventsScreen({ navigation }) {
     {
       id: 2,
       date: "11 March",
-      title: "raiSE Masterclass 1 - Survive and Thrive in the Present",
-      time: "1400 - 1600 hrs",
-      price: "$15/pax (provisional membership); $12/pax (membership)",
+      title: "Health x Social Care Industry Circle",
+      time: "1000 - 1300 hrs",
+      price: "$90/pax (provisional membership); $83/pax (membership)",
       numDate: "2022-03-11",
       isEnrolled: false,
     },
   ]);
 
-  // useEffect(() => {
-  //   navigation.navigate("Quiz Modal");
-  // }, []);
+  useEffect(() => {
+    navigation.navigate("Quiz Modal");
+  }, []);
 
   function renderEvents({ item }) {
     return (
@@ -71,6 +71,7 @@ export default function EventsScreen({ navigation }) {
             title: item.title,
             time: item.time,
             price: item.price,
+            isEnrolled: item.isEnrolled,
           })
         }
       >
@@ -82,6 +83,11 @@ export default function EventsScreen({ navigation }) {
           </View>
           <View style={styles.lineBreak}></View>
           <View style={{ flex: 3 }}>
+            {item.isEnrolled ? (
+              <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                Enrolled!
+              </Text>
+            ) : null}
             <Text style={{ fontSize: 16 }}>{item.title}</Text>
             <Text style={styles.greyItalics}>Time: {item.time}</Text>
             <Text style={styles.greyItalics}>Price: {item.price}</Text>
