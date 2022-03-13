@@ -12,8 +12,9 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { UserContext } from "../assets/UserContext";
 import { AntDesign } from "@expo/vector-icons";
+import BackButton from "../components/BackButton";
 
-export default function ClickedPostScreen({ route }) {
+export default function ClickedPostScreen({ navigation, route }) {
   const username = useContext(UserContext);
   const textInput = useRef(null);
 
@@ -63,7 +64,7 @@ export default function ClickedPostScreen({ route }) {
       liked: false,
     },
   ]);
-  var {
+  const {
     name,
     industry,
     tags,
@@ -82,7 +83,16 @@ export default function ClickedPostScreen({ route }) {
     return (
       <View style={[styles.commentBox, isUrgent ? styles.yellow : styles.grey]}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Ionicons name="person-circle-sharp" size={50} color="black" />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Chat Screen", {
+                name: item.name,
+                preview: "",
+              })
+            }
+          >
+            <Ionicons name="person-circle-sharp" size={50} color="black" />
+          </TouchableOpacity>
           <View>
             <Text style={{ fontWeight: "bold", fontSize: 16 }}>
               {item.name}
@@ -137,7 +147,6 @@ export default function ClickedPostScreen({ route }) {
       ...listComments,
     ]);
     setComment("");
-    comments += 1;
   }
 
   // Handler when a post is liked
@@ -157,6 +166,8 @@ export default function ClickedPostScreen({ route }) {
 
   return (
     <View style={styles.container}>
+      <Text style={{ fontSize: 30, marginTop: 20, marginLeft: 20 }}>Feed</Text>
+      <BackButton />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
           style={[
@@ -249,6 +260,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 10,
     padding: 10,
+    marginTop: 10,
   },
   greyItalics: {
     color: "grey",
