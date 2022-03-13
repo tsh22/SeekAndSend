@@ -19,7 +19,7 @@ export default function FeedStack() {
       <Stack.Screen
         name="Create Post Screen"
         component={CreatePostScreen}
-        options={{ title: "Create post" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Clicked Post"
@@ -34,7 +34,7 @@ export default function FeedStack() {
       <Stack.Screen
         name="Chat List Screen"
         component={ChatListScreen}
-        options={{ title: "Chats" }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

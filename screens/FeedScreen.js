@@ -13,7 +13,54 @@ import { UserContext } from "../assets/UserContext";
 import { LogBox } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function FeedScreen({ navigation }) {
+export default function FeedScreen({ navigation, route }) {
+  useEffect(() => {
+    if (route.params != undefined) {
+      const {
+        name,
+        industry,
+        tags,
+        liked,
+        likes,
+        comments,
+        title,
+        content,
+        isUrgent,
+      } = route.params;
+      if (isUrgent) {
+        setUrgent([
+          {
+            id: `${urgentPosts.length}`,
+            name: name,
+            industry: industry,
+            tags: tags,
+            liked: liked,
+            likes: likes,
+            comments: comments,
+            title: title,
+            content: content,
+          },
+          ...urgentPosts,
+        ]);
+      } else {
+        setFeed([
+          {
+            id: `${feedPosts.length}`,
+            name: name,
+            industry: industry,
+            tags: tags,
+            liked: liked,
+            likes: likes,
+            comments: comments,
+            title: title,
+            content: content,
+          },
+          ...feedPosts,
+        ]);
+      }
+    }
+  }, [route.params]);
+
   useEffect(() => {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, []);
