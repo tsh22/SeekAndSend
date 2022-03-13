@@ -70,16 +70,17 @@ export default function FeedScreen({ navigation, route }) {
   const [filter, setFilter] = useState(0);
   const [urgentPosts, setUrgent] = useState([
     {
+      liked: false,
       id: 0,
-      name: "John, Doe",
-      industry: "Arts",
-      tags: ["Advice", "Finance"],
+      name: "Joe, Dough",
+      industry: "Healthcare",
+      tags: ["Advice", "Healthcare"],
       liked: false,
       likes: 10,
       comments: 5,
-      title: "Do you have any advice to help with budget planning?",
+      title: "Advice on expanding to COVID-19 related health needs",
       content:
-        "Covid-19 has hit us hard and we’re struggling especially in the financial department. In the worst case scenario, we would definitely have to let a few of our staff go. But we would definitely like to find alternatives before even considering that option.",
+        "With the prevalence of COVID-19 we were thinking of restructuring or expanding to serve the needs that came from COVID-19. Advice or discussions would be helpful.",
     },
     {
       id: 1,
@@ -91,64 +92,61 @@ export default function FeedScreen({ navigation, route }) {
       comments: 5,
       title: "Advice on government funding for Arts events",
       content:
-        "We are looking to organise Arts events in Singapore. Looking for advice regarding government funding. What is the success rate of applying for...",
+        "We are looking to organise Arts events in Singapore. Looking for advice regarding government funding. What is the success rate of applying for funding?",
     },
     {
-      liked: false,
       id: 2,
-      name: "John, Doe",
-      industry: "Arts",
-      tags: ["Advice", "Finance"],
+      name: "Mary, Lin",
+      industry: "Elderly",
+      tags: ["Advice", "Partnership", "Technology"],
       liked: false,
-      likes: 10,
+      likes: 5,
       comments: 5,
-      title: "Advice on government funding for Arts events",
+      title: "Seeking partners with technological expertise",
       content:
-        "We are looking to organise Arts events in Singapore. Looking for advice regarding government funding. What is the success rate of applying for...",
+        "We are organising a campaign to impart technological skills in the elderly. Urgently require partners with technological expertise in an advisory/consultant role.",
     },
   ]);
 
   const [feedPosts, setFeed] = useState([
     {
       id: 0,
-      name: "John, Doe",
-      industry: "Arts",
+      name: "Sum Ting, Wong",
+      industry: "All",
       tags: ["Advice", "Finance"],
       liked: false,
       likes: 9,
       comments: 5,
-      title: "Do you have any advice to help with budget planning?",
-      content:
-        "Covid-19 has hit us hard and we’re struggling especially in the financial department. In the worst case scenario, we would definitely have to let a few of our staff go. But we would definitely like to find alternatives before even considering that option.",
+      title: "Where do you find resources to help with budget planning?",
+      content: "Any links or referrals or direct messages would help!",
     },
     {
       id: 1,
-      name: "John, Doe",
-      industry: "Arts",
-      tags: ["Advice", "Finance"],
+      name: "Mee Saw, Tang",
+      industry: "Sustainability",
+      tags: ["Advice", "Sustainability"],
       liked: false,
       likes: 20,
       comments: 5,
-      title: "Advice on government funding for Arts events",
+      title:
+        "What are some pitfalls you faced incoporating sustainability practices in your workplace?",
       content:
-        "We are looking to organise Arts events in Singapore. Looking for advice regarding government funding. What is the success rate of applying for...",
+        "For example, having to enforce the practices, the potential costs that come with incorporating such practices. Would be helpful if we could get an idea of how you avoided these pitfalls too.",
     },
     {
       liked: false,
       id: 2,
-      name: "John, Doe",
-      industry: "Arts",
-      tags: ["Advice", "Finance"],
+      name: "Ken, Chin",
+      industry: "Community Engagement",
+      tags: ["Advice", "Finance", "Manpower"],
       liked: false,
       likes: 17,
       comments: 5,
-      title: "Advice on government funding for Arts events",
+      title: "How do you guys find volunteers to help out at events?",
       content:
-        "We are looking to organise Arts events in Singapore. Looking for advice regarding government funding. What is the success rate of applying for...",
+        "Ever since COVID-19 there has been a huge drop in volunteers that we have been able to call upon. Anyone have tips on how to better engage volunteers to help out in these trying times?",
     },
   ]);
-
-  const sortedPosts = { ...feedPosts };
 
   const username = useContext(UserContext);
 
@@ -191,6 +189,7 @@ export default function FeedScreen({ navigation, route }) {
     return 0;
   }
 
+  // Sort posts based on time posted
   function compareTime(a, b) {
     if (a.id < b.id) {
       return 1;
@@ -322,20 +321,6 @@ export default function FeedScreen({ navigation, route }) {
             />
           </TouchableOpacity>
         </View>
-        {/* <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            marginVertical: 10,
-          }}
-        >
-          <TouchableOpacity style={styles.filterButton}>
-            <Text style={{ color: "white", fontSize: 16 }}>My feed</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.filterButton}>
-            <Text style={{ color: "white", fontSize: 16 }}>Popular</Text>
-          </TouchableOpacity>
-        </View> */}
         <ButtonGroup
           buttons={["Recent", "Popular"]}
           onPress={(value) => {
