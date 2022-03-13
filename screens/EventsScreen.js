@@ -7,19 +7,32 @@ import {
   FlatList,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { ButtonGroup } from "react-native-elements";
 
 export default function EventsScreen({ navigation }) {
   const [showOnly, setShow] = useState(null);
-
-  const [events, setEvents] = useState([
+  // 0: My Events, 1: All Events
+  const [filter, setFilter] = useState(0);
+  const [myEvents, setMyEvents] = useState([
+    {
+      id: 0,
+      date: "15 March",
+      title: "raiSE Masterclass 1 - Survive and Thrive in the Present",
+      time: "1400 - 1600 hrs",
+      price: "$15/pax (provisional membership); $12/pax (membership)",
+      numDate: "2022-03-15",
+      isEnrolled: true,
+    },
+  ]);
+  const [allEvents, setAllEvents] = useState([
     {
       id: 0,
       date: "1 March",
       title: "raiSE Masterclass 1 - Survive and Thrive in the Present",
       time: "1400 - 1600 hrs",
       price: "$15/pax (provisional membership); $12/pax (membership)",
-      isEnrolled: false,
       numDate: "2022-03-01",
+      isEnrolled: false,
     },
     {
       id: 1,
@@ -27,8 +40,8 @@ export default function EventsScreen({ navigation }) {
       title: "raiSE Masterclass 1 - Survive and Thrive in the Present",
       time: "1400 - 1600 hrs",
       price: "$15/pax (provisional membership); $12/pax (membership)",
-      isEnrolled: false,
       numDate: "2022-03-05",
+      isEnrolled: false,
     },
     {
       id: 2,
@@ -36,33 +49,22 @@ export default function EventsScreen({ navigation }) {
       title: "raiSE Masterclass 1 - Survive and Thrive in the Present",
       time: "1400 - 1600 hrs",
       price: "$15/pax (provisional membership); $12/pax (membership)",
-      isEnrolled: false,
       numDate: "2022-03-11",
-    },
-    {
-      id: 3,
-      date: "15 March",
-      title: "raiSE Masterclass 1 - Survive and Thrive in the Present",
-      time: "1400 - 1600 hrs",
-      price: "$15/pax (provisional membership); $12/pax (membership)",
       isEnrolled: false,
-      numDate: "2022-03-15",
     },
   ]);
 
-  useEffect(() => {
-    navigation.navigate("Quiz Modal");
-  }, []);
+  // useEffect(() => {
+  //   navigation.navigate("Quiz Modal");
+  // }, []);
 
   function renderEvents({ item }) {
     return (
       <TouchableOpacity
-        style={{
-          backgroundColor: "#F1F1F1",
-          padding: 10,
-          marginVertical: 10,
-          borderRadius: 5,
-        }}
+        style={[
+          styles.eventItem,
+          item.isEnrolled ? styles.darkYellow : styles.yellow,
+        ]}
         onPress={() =>
           navigation.navigate("Event Detail", {
             date: item.date,
@@ -73,13 +75,16 @@ export default function EventsScreen({ navigation }) {
         }
       >
         <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-              {item.date}
-            </Text>
-            <Text>{item.title}</Text>
-            <Text>{item.time}</Text>
-            <Text>{item.price}</Text>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <Text style={{ fontSize: 16 }}>{item.date}</Text>
+          </View>
+          <View style={styles.lineBreak}></View>
+          <View style={{ flex: 3 }}>
+            <Text style={{ fontSize: 16 }}>{item.title}</Text>
+            <Text style={styles.greyItalics}>Time: {item.time}</Text>
+            <Text style={styles.greyItalics}>Price: {item.price}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -92,30 +97,32 @@ export default function EventsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 30, margin: 20 }}>Events</Text>
+      <Text style={{ fontSize: 30, marginTop: 20, marginLeft: 20 }}>
+        Events
+      </Text>
       <Calendar
         markingType={"period"}
         markedDates={{
           "2022-03-01": {
-            color: "#D69A3C",
+            color: "#FFF1D9",
             startingDay: true,
             endingDay: true,
           },
           "2022-03-05": {
             startingDay: true,
-            color: "#D69A3C",
+            color: "#FFF1D9",
           },
           "2022-03-06": {
             endingDay: true,
-            color: "#D69A3C",
+            color: "#FFF1D9",
           },
           "2022-03-11": {
-            color: "#D69A3C",
+            color: "#FFF1D9",
             startingDay: true,
             endingDay: true,
           },
           "2022-03-15": {
-            color: "#D69A3C",
+            color: "#FFC872",
             startingDay: true,
             endingDay: true,
           },
@@ -129,12 +136,28 @@ export default function EventsScreen({ navigation }) {
         firstDay={1}
         enableSwipeMonths={true}
       />
-      <FlatList
-        data={events}
-        renderItem={({ item }) => <Events item={item} />}
-        keyExtractor={(item) => item.id}
-        // style={{ flex: 1 }}
+      <ButtonGroup
+        buttons={["My Events", "All Events"]}
+        onPress={(value) => {
+          setFilter(value);
+        }}
+        selectedIndex={filter}
+        containerStyle={{ marginBottom: 10 }}
+        selectedButtonStyle={{ backgroundColor: "#D69A3C" }}
       />
+      {filter == 0 ? (
+        <FlatList
+          data={myEvents}
+          renderItem={({ item }) => <Events item={item} />}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <FlatList
+          data={allEvents}
+          renderItem={({ item }) => <Events item={item} />}
+          keyExtractor={(item) => item.id}
+        />
+      )}
     </View>
   );
 }
@@ -144,5 +167,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     padding: 10,
+  },
+  lineBreak: {
+    borderLeftColor: "#C5C5C5",
+    borderLeftWidth: 2,
+    marginHorizontal: 10,
+  },
+  greyItalics: {
+    color: "grey",
+    fontStyle: "italic",
+    fontSize: 12,
+  },
+  yellow: {
+    backgroundColor: "#FFF1D9",
+  },
+  darkYellow: {
+    backgroundColor: "#FFE3B8",
+  },
+  eventItem: {
+    backgroundColor: "#FFE3B8",
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 5,
   },
 });
