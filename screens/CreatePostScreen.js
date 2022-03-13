@@ -61,7 +61,7 @@ export default function CreatePostScreen({ navigation }) {
           Create Post
         </Text>
         <BackButton />
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
           <View style={styles.postBox}>
             <TextInput
               multiline
@@ -145,7 +145,7 @@ export default function CreatePostScreen({ navigation }) {
           >
             <Text style={styles.buttonText}>Post</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-end",
-    marginVertical: 30,
+    marginTop: 10,
   },
   buttonText: {
     color: "white",
