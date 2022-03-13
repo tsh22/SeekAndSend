@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { UserContext } from "../assets/UserContext";
 import { LogBox } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { ButtonGroup } from "react-native-elements";
 
 export default function FeedScreen({ navigation, route }) {
   useEffect(() => {
@@ -65,6 +66,8 @@ export default function FeedScreen({ navigation, route }) {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, []);
 
+  // 0: My Feed, 1: Popular
+  const [filter, setFilter] = useState(0);
   const [urgentPosts, setUrgent] = useState([
     {
       id: 0,
@@ -112,7 +115,7 @@ export default function FeedScreen({ navigation, route }) {
       industry: "Arts",
       tags: ["Advice", "Finance"],
       liked: false,
-      likes: 10,
+      likes: 9,
       comments: 5,
       title: "Do you have any advice to help with budget planning?",
       content:
@@ -124,7 +127,7 @@ export default function FeedScreen({ navigation, route }) {
       industry: "Arts",
       tags: ["Advice", "Finance"],
       liked: false,
-      likes: 10,
+      likes: 20,
       comments: 5,
       title: "Advice on government funding for Arts events",
       content:
@@ -137,13 +140,15 @@ export default function FeedScreen({ navigation, route }) {
       industry: "Arts",
       tags: ["Advice", "Finance"],
       liked: false,
-      likes: 10,
+      likes: 17,
       comments: 5,
       title: "Advice on government funding for Arts events",
       content:
         "We are looking to organise Arts events in Singapore. Looking for advice regarding government funding. What is the success rate of applying for...",
     },
   ]);
+
+  const sortedPosts = { ...feedPosts };
 
   const username = useContext(UserContext);
 
@@ -173,6 +178,27 @@ export default function FeedScreen({ navigation, route }) {
     } else {
       targetPost.likes -= 1;
     }
+  }
+
+  // Sort posts based on likes
+  function compareLikes(a, b) {
+    if (a.likes < b.likes) {
+      return 1;
+    }
+    if (a.likes > b.likes) {
+      return -1;
+    }
+    return 0;
+  }
+
+  function compareTime(a, b) {
+    if (a.id < b.id) {
+      return 1;
+    }
+    if (a.id > b.id) {
+      return -1;
+    }
+    return 0;
   }
 
   function ListUrgent({ item }) {
@@ -296,7 +322,7 @@ export default function FeedScreen({ navigation, route }) {
             />
           </TouchableOpacity>
         </View>
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "space-evenly",
@@ -309,7 +335,16 @@ export default function FeedScreen({ navigation, route }) {
           <TouchableOpacity style={styles.filterButton}>
             <Text style={{ color: "white", fontSize: 16 }}>Popular</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
+        <ButtonGroup
+          buttons={["Recent", "Popular"]}
+          onPress={(value) => {
+            setFilter(value);
+          }}
+          selectedIndex={filter}
+          containerStyle={{ marginBottom: 20 }}
+          selectedButtonStyle={{ backgroundColor: "#79694F" }}
+        />
         <View
           style={{
             backgroundColor: "#FFE3B3",
@@ -328,14 +363,25 @@ export default function FeedScreen({ navigation, route }) {
             keyExtractor={(item) => item.id}
           />
         </View>
-        <FlatList
-          extraData={changedId}
-          data={feedPosts}
-          renderItem={({ item, index }) => (
-            <ListFeed item={item} index={index} />
-          )}
-          keyExtractor={(item) => item.id}
-        />
+        {filter == 0 ? (
+          <FlatList
+            extraData={changedId}
+            data={feedPosts.sort(compareTime)}
+            renderItem={({ item, index }) => (
+              <ListFeed item={item} index={index} />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <FlatList
+            extraData={changedId}
+            data={feedPosts.sort(compareLikes)}
+            renderItem={({ item, index }) => (
+              <ListFeed item={item} index={index} />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        )}
       </ScrollView>
       <View>
         <TouchableOpacity
