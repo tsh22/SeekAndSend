@@ -27,9 +27,9 @@ export default function FeedScreen({ navigation }) {
       liked: false,
       likes: 10,
       comments: 5,
-      title: "Advice on government funding for Arts events",
+      title: "Do you have any advice to help with budget planning?",
       content:
-        "We are looking to organise Arts events in Singapore. Looking for advice regarding government funding. What is the success rate of applying for...",
+        "Covid-19 has hit us hard and we’re struggling especially in the financial department. In the worst case scenario, we would definitely have to let a few of our staff go. But we would definitely like to find alternatives before even considering that option.",
     },
     {
       id: 1,
@@ -67,9 +67,9 @@ export default function FeedScreen({ navigation }) {
       liked: false,
       likes: 10,
       comments: 5,
-      title: "Advice on government funding for Arts events",
+      title: "Do you have any advice to help with budget planning?",
       content:
-        "We are looking to organise Arts events in Singapore. Looking for advice regarding government funding. What is the success rate of applying for...",
+        "Covid-19 has hit us hard and we’re struggling especially in the financial department. In the worst case scenario, we would definitely have to let a few of our staff go. But we would definitely like to find alternatives before even considering that option.",
     },
     {
       id: 1,
@@ -137,7 +137,19 @@ export default function FeedScreen({ navigation }) {
           margin: 10,
           borderRadius: 5,
         }}
-        onPress={() => navigation.navigate("Clicked Post")}
+        onPress={() =>
+          navigation.navigate("Clicked Post", {
+            name: item.name,
+            industry: item.industry,
+            tags: listTags(item.tags),
+            liked: item.liked,
+            likes: item.likes,
+            comments: item.comments,
+            title: item.title,
+            content: item.content,
+            isUrgent: true,
+          })
+        }
       >
         <Text style={{ fontWeight: "bold", fontSize: 16 }}>{item.name}</Text>
         <Text style={styles.greyItalics}>{item.industry}</Text>
@@ -165,7 +177,19 @@ export default function FeedScreen({ navigation }) {
           marginVertical: 10,
           borderRadius: 5,
         }}
-        onPress={() => navigation.navigate("Clicked Post")}
+        onPress={() =>
+          navigation.navigate("Clicked Post", {
+            name: item.name,
+            industry: item.industry,
+            tags: listTags(item.tags),
+            liked: item.liked,
+            likes: item.likes,
+            comments: item.comments,
+            title: item.title,
+            content: item.content,
+            isUrgent: false,
+          })
+        }
       >
         <Text style={{ fontWeight: "bold", fontSize: 16 }}>{item.name}</Text>
         <Text style={styles.greyItalics}>{item.industry}</Text>

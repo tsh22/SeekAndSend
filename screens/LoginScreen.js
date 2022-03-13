@@ -33,6 +33,7 @@ export default function LoginScreen({ navigation }) {
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
           mode="outlined"
+          secureTextEntry={true}
         />
         <TouchableOpacity
           style={styles.button}

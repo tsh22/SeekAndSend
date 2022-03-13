@@ -1,13 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
 export default function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{"Seek&Send"}</Text>
-      <Text style={styles.text}>(Logo goes here)</Text>
-
+      <Image
+        source={require("../assets/icon.png")}
+        style={{ height: 166, width: 156 }}
+      />
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("Login Screen")}
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 100,
+    marginVertical: 50,
   },
   buttonText: {
     color: "white",
