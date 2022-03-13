@@ -5,6 +5,7 @@ import ChatScreen from "./ChatScreen";
 import ClickedPostScreen from "./ClickedPostScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import FeedScreen from "./FeedScreen";
+import SearchScreen from "./SearchScreen";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,11 @@ export default function FeedStack() {
       <Stack.Screen
         name="Chat List Screen"
         component={ChatListScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Search Screen"
+        component={SearchScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -176,8 +176,8 @@ export default function ClickedPostScreen({ navigation, route }) {
           ]}
         >
           <Text style={{ fontWeight: "bold", fontSize: 16 }}>{name}</Text>
-          <Text style={styles.greyItalics}>{industry}</Text>
-          <Text style={styles.greyItalics}>{tags}</Text>
+          <Text style={styles.greyItalics}>Industry: {industry}</Text>
+          <Text style={styles.greyItalics}>Tags: {tags}</Text>
           <Text style={{ fontSize: 16 }}>{title}</Text>
           <Text style={styles.greyItalics}>{content}</Text>
           <View

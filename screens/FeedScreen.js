@@ -66,6 +66,7 @@ export default function FeedScreen({ navigation, route }) {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, []);
 
+  const [searchQuery, setSearchQuery] = useState("");
   // 0: My Feed, 1: Popular
   const [filter, setFilter] = useState(0);
   const [urgentPosts, setUrgent] = useState([
@@ -224,8 +225,8 @@ export default function FeedScreen({ navigation, route }) {
         }
       >
         <Text style={{ fontWeight: "bold", fontSize: 16 }}>{item.name}</Text>
-        <Text style={styles.greyItalics}>{item.industry}</Text>
-        <Text style={styles.greyItalics}>{listTags(item.tags)}</Text>
+        <Text style={styles.greyItalics}>Industry: {item.industry}</Text>
+        <Text style={styles.greyItalics}>Tags: {listTags(item.tags)}</Text>
         <Text style={{ fontSize: 16 }} numberOfLines={2}>
           {item.title}
         </Text>
@@ -264,8 +265,8 @@ export default function FeedScreen({ navigation, route }) {
         }
       >
         <Text style={{ fontWeight: "bold", fontSize: 16 }}>{item.name}</Text>
-        <Text style={styles.greyItalics}>{item.industry}</Text>
-        <Text style={styles.greyItalics}>{listTags(item.tags)}</Text>
+        <Text style={styles.greyItalics}>Industry: {item.industry}</Text>
+        <Text style={styles.greyItalics}>Tags: {listTags(item.tags)}</Text>
         <Text style={{ fontSize: 16 }} numberOfLines={2}>
           {item.title}
         </Text>
@@ -312,15 +313,23 @@ export default function FeedScreen({ navigation, route }) {
           <Text style={{ fontSize: 40, marginRight: 10 }}>Hi, {username}</Text>
           <Ionicons name="person-circle-sharp" size={60} color="black" />
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Chat List Screen")}
-        >
-          <Ionicons
-            name="ios-chatbox-ellipses-outline"
-            size={60}
-            color="black"
-          />
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Search Screen")}
+            style={{ marginRight: 10 }}
+          >
+            <Ionicons name="search-sharp" size={50} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Chat List Screen")}
+          >
+            <Ionicons
+              name="ios-chatbox-ellipses-outline"
+              size={50}
+              color="black"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <ButtonGroup
         buttons={["Recent", "Popular"]}
