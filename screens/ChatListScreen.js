@@ -8,21 +8,25 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import BackButton from "../components/BackButton";
 
 export default function ChatListScreen({ navigation }) {
   const [chats, setChats] = useState([
     {
+      id: 0,
       name: "Paul, Tan",
       company: "Dew This Inc, Operations Manager",
       preview:
         "Thank you! It was amazing talking to you. Let’s keep in touch for sure!",
     },
     {
+      id: 1,
       name: "Sum Ting, Wong",
       company: "Dew That Inc, Operations Manager",
       preview: "Thank you!",
     },
     {
+      id: 2,
       name: "Bert, Dae",
       company: "Dew Everything Inc, Operations Manager",
       preview: "Thanks! :)",
@@ -67,12 +71,17 @@ export default function ChatListScreen({ navigation }) {
   }
 
   return (
-    <FlatList
-      data={chats}
-      renderItem={({ item }) => <ListChats item={item} />}
-      keyExtractor={(item) => item.id}
-      style={styles.container}
-    />
+    <View style={{ backgroundColor: "white", flex: 1 }}>
+      <Text style={{ fontSize: 30, marginTop: 20, marginLeft: 20 }}>Chats</Text>
+      <BackButton />
+
+      <FlatList
+        data={chats}
+        renderItem={({ item }) => <ListChats item={item} />}
+        keyExtractor={(item) => item.id}
+        style={styles.container}
+      />
+    </View>
   );
 }
 
